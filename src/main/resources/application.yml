@@ -1,0 +1,29 @@
+
+#spring:
+#  datasource:
+#    driver-class-name: org.postgresql.Driver
+#    password: 5744
+#    url: jdbc:postgresql://localhost:5432/homes
+#    username: postgres
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    properties:
+#      hibernate:
+#        jdbc:
+#          lob:
+#            non_contextual_creation: true
+
+spring:
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    password: 5744
+    url: jdbc:postgresql://localhost:5433/homes
+    username: postgres
+
+  liquibase:
+    change-log: classpath:liquibase/main-changelog.yml
+
+
+

@@ -1,0 +1,124 @@
+databaseChangeLog:
+  - changeSet:
+      id: home
+      author: Kate
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            - tableExists:
+                tableName: home
+      changes:
+        - createTable:
+            tableName: home
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                  autoIncrement: true
+              - column:
+                  name: name
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: address
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+            ifNotExists: true
+            schemaName: public
+        - createTable:
+            tableName: rooms
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                  autoIncrement: true
+              - column:
+                  name: name
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: home_id
+                  type: integer
+                  constraints:
+                    nullable: false
+            ifNotExists: true
+            schemaName: public
+  - changeSet:
+      id: home1
+      author: Kate
+      changes:
+        - insert:
+            tableName: home
+            columns:
+              - column:
+                  name: id
+                  value: "1"
+              - column:
+                  name: name
+                  value: "One"
+              - column:
+                  name: address
+                  value: "Moscow"
+  - changeSet:
+      id: home2
+      author: Kate
+      changes:
+        - insert:
+            tableName: home
+            columns:
+              - column:
+                  name: id
+                  value: "2"
+              - column:
+                  name: name
+                  value: "Two"
+              - column:
+                  name: address
+                  value: "Moscow"
+#  - changeSet:
+#      id: home3
+#      author: Kate
+#      changes:
+#        - insert:
+#            tableName: home
+#            columns:
+#              - column:
+#                  name: id
+#                  value: "3"
+#              - column:
+#                  name: name
+#                  value: "Three"
+#              - column:
+#                  name: address
+#                  value: "Moscow"
+
+#  - changeSet:
+#      id: room1
+#      author: Kate
+#      changes:
+#        - insert:
+#            tableName: rooms
+#            columns:
+#              - column:
+#                  name: id
+#                  value: "1"
+#              - column:
+#                  name: name
+#                  value: "One"
+  - changeSet:
+      id: room3
+      author: Kate
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: rooms
+            baseColumnNames: home_id
+            referencedTableName: home
+            referencedColumnNames: id
+            constraintName: home_rooms_fk

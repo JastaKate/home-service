@@ -16,7 +16,7 @@ public class HomeServiceimpl implements HomeService{
     private final HomeRepo homeRepo;
 
     @Override
-    public Home create(HomeRequest homeRequest) {
+    public Home createHome(HomeRequest homeRequest) {
         return homeRepo.save(Home.builder()
                 .name(homeRequest.getName())
                 .address(homeRequest.getAddress())
@@ -39,7 +39,7 @@ public class HomeServiceimpl implements HomeService{
     }
 
     @Override
-    public void delete(Long id){
+    public void deleteHome(Long id){
         homeRepo.deleteById(id);
     }
 

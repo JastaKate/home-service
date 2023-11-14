@@ -1,1 +1,0 @@
- //INSERT INTO Home (id, name, address) VALUES (1, 'Home1', 'Moscow'), (2, 'Home2', 'Saransk'),(3, 'Home3', 'St.Petersburg'), (4, 'Home4', 'Ekaterinburg');

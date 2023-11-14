@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +19,7 @@ import java.util.Optional;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@RequestMapping("/api")
+@RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
 public class HomeController {
 
 
@@ -26,7 +27,7 @@ public class HomeController {
 
     @PostMapping("/homes")
     public ResponseEntity<Home> createPet(@RequestBody @Valid HomeRequest homeRequest) {
-        return new ResponseEntity<>(homeService.create(homeRequest), HttpStatus.OK);
+        return new ResponseEntity<>(homeService.createHome(homeRequest), HttpStatus.OK);
     }
 
     @PutMapping("/homes")
@@ -44,9 +45,9 @@ public class HomeController {
         return homeService.getHome(id);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/homes/{id}")
     public HttpStatus delete(@PathVariable Long id) {
-        homeService.delete(id);
+        homeService.deleteHome(id);
         return HttpStatus.OK;
     }
 
