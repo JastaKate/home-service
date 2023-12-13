@@ -50,14 +50,10 @@ class HomeServiceimplTest {
         Mockito.when(restTemplateMock.exchange(apiUrl, HttpMethod.GET, new HttpEntity<>(expectedHeaders), String.class))
                 .thenReturn(mockResponse);
 
-
         List<Home> expectedHomes = new ArrayList<>();
         Mockito.when(homeRepo.findByAllHouse(responseBody)).thenReturn(expectedHomes);
 
-        // Act
         List<Home> actualHomes = service.getHomes(token);
-
-        // Assert
         assertEquals(expectedHomes, actualHomes);
 
     }
