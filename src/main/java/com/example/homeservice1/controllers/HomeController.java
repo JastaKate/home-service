@@ -10,7 +10,9 @@ import lombok.Setter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -19,15 +21,17 @@ import java.util.Optional;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/v2/api", produces = MediaType.APPLICATION_JSON_VALUE)
 public class HomeController {
 
 
     private final HomeServiceimpl homeService;
+    private final KafkaTemplate<String, String> kafkaTemplate;
+
 
     @PostMapping("/homes")
-    public ResponseEntity<Home> createPet(@RequestBody @Valid HomeRequest homeRequest) {
-        return new ResponseEntity<>(homeService.createHome(homeRequest), HttpStatus.OK);
+    public ResponseEntity<Home> createHome(@RequestHeader String token, @RequestBody @Valid HomeRequest homeRequest) {
+        return new ResponseEntity<>(homeService.createHome(token, homeRequest), HttpStatus.OK);
     }
 
     @PutMapping("/homes")
@@ -36,20 +40,24 @@ public class HomeController {
     }
 
     @GetMapping("/homes")
-    public ResponseEntity<List<Home>> getHomes() {
-        return new ResponseEntity<>(homeService.getHomes(), HttpStatus.OK);
+    public ResponseEntity<List<Home>> getHomes(@RequestHeader String token) {
+        return new ResponseEntity<>(homeService.getHomes(token), HttpStatus.OK);
     }
 
     @GetMapping("/homes/{id}")
-    public Optional<Home> getHome(@PathVariable Long id) {
-        return homeService.getHome(id);
+    public Optional<Home> getHome(@RequestHeader String token, @PathVariable Long id) {
+        return homeService.getHome(token,id);
     }
 
     @DeleteMapping("/homes/{id}")
     public HttpStatus delete(@PathVariable Long id) {
-        homeService.deleteHome(id);
+        homeService.deleteHomes(id);
+        kafkaTemplate.send("home-deleted", "home deleted");
+        kafkaTemplate.send("home-deleted", "rooms deleted");
         return HttpStatus.OK;
     }
+
+
 
 
 }

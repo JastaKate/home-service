@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @NotNull
+//    @NotNull
     @Column(name = "id")
     private Long id;
     @Column(name = "name")

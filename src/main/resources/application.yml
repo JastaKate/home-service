@@ -14,8 +14,10 @@
 #          lob:
 #            non_contextual_creation: true
 
-spring:
+server:
+  port : 8082
 
+spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     password: 5744
@@ -24,6 +26,10 @@ spring:
 
   liquibase:
     change-log: classpath:liquibase/main-changelog.yml
+
+kafka:
+  bootstrap-servers: localhost:29092
+
 
 
 

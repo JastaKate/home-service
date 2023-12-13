@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RoomRepo extends JpaRepository<Room, Long> {
+    void deleteAllByHomeId(Long homeId);
 }

@@ -13,8 +13,9 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: bigint
+                  type: serial
                   constraints:
+                    nullable: false
                     primaryKey: true
                   autoIncrement: true
               - column:
@@ -27,6 +28,9 @@ databaseChangeLog:
                   type: varchar(50)
                   constraints:
                     nullable: false
+              - column:
+                  name: ownerid
+                  type: varchar(255)
             ifNotExists: true
             schemaName: public
         - createTable:
@@ -50,38 +54,38 @@ databaseChangeLog:
                     nullable: false
             ifNotExists: true
             schemaName: public
-  - changeSet:
-      id: home1
-      author: Kate
-      changes:
-        - insert:
-            tableName: home
-            columns:
-              - column:
-                  name: id
-                  value: "1"
-              - column:
-                  name: name
-                  value: "One"
-              - column:
-                  name: address
-                  value: "Moscow"
-  - changeSet:
-      id: home2
-      author: Kate
-      changes:
-        - insert:
-            tableName: home
-            columns:
-              - column:
-                  name: id
-                  value: "2"
-              - column:
-                  name: name
-                  value: "Two"
-              - column:
-                  name: address
-                  value: "Moscow"
+#  - changeSet:
+#      id: home1
+#      author: Kate
+#      changes:
+#        - insert:
+#            tableName: home
+#            columns:
+#              - column:
+#                  name: id
+#                  value: "1"
+#              - column:
+#                  name: name
+#                  value: "One"
+#              - column:
+#                  name: address
+#                  value: "Moscow"
+#  - changeSet:
+#      id: home2
+#      author: Kate
+#      changes:
+#        - insert:
+#            tableName: home
+#            columns:
+#              - column:
+#                  name: id
+#                  value: "2"
+#              - column:
+#                  name: name
+#                  value: "Two"
+#              - column:
+#                  name: address
+#                  value: "Moscow"
 #  - changeSet:
 #      id: home3
 #      author: Kate
@@ -122,3 +126,10 @@ databaseChangeLog:
             referencedTableName: home
             referencedColumnNames: id
             constraintName: home_rooms_fk
+#        - addForeignKeyConstraint:
+#            baseTableName: user
+#            baseColumnNames: owner_id
+#            referencedTableName: home
+#            referencedColumnNames: id
+#            constraintName: home_user_fk
+

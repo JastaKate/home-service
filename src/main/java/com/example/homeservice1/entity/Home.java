@@ -19,15 +19,18 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "home")
 public class Home {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
     @Column(name = "name")
     private String name;
     @Column(name = "address")
     private String address;
+    @Column(name = "ownerid")
+    private String ownerid;
+
 
     @OneToMany(mappedBy = "home", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JsonManagedReference
