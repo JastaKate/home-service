@@ -34,9 +34,10 @@ public class HomeController {
         return new ResponseEntity<>(homeService.createHome(token, homeRequest), HttpStatus.OK);
     }
 
-    @PutMapping("/homes")
-    public ResponseEntity<Home> putHome(@RequestBody @Valid Home home) {
-        return new ResponseEntity<>(homeService.putHome(home), HttpStatus.OK);
+    @PutMapping("/homes/{id}")
+    public ResponseEntity<Home> putHome(@RequestParam Long id,@RequestHeader String token, @RequestBody @Valid Home put) {
+        homeService.putHome(id, token, put);
+        return new ResponseEntity<>(put, HttpStatus.OK);
     }
 
     @GetMapping("/homes")

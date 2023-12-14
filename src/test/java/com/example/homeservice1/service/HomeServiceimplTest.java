@@ -8,6 +8,7 @@ import com.example.homeservice1.request.HomeRequest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,8 @@ class HomeServiceimplTest {
     private HomeRepo homeRepo;
     @Mock
     private RoomRepo roomRepo;
+    @Mock
+    private RestTemplate restTemplate;
     @Autowired
     private HomeServiceimpl service;
 
@@ -130,4 +133,5 @@ class HomeServiceimplTest {
         Mockito.verify(homeRepo, Mockito.times(1)).deleteById(id);
 
     }
+
 }

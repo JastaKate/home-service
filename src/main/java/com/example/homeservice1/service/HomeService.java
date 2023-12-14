@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface HomeService {
 
     Home createHome(String token, HomeRequest homeRequest);
-    Home putHome(Home home);
+    void putHome(Long id,String token, Home home);
     List<Home> getHomes(String token);
     Optional<Home> getHome(String token, Long id);
 //    void deleteHome(Long id);

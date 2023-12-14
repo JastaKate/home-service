@@ -39,8 +39,14 @@ public class HomeServiceimpl implements HomeService{
     }
 
     @Override
-    public Home putHome(Home home) {
-        return homeRepo.save(home);
+    public void putHome(Long id,String token,Home home) {
+        RestTemplate restTemplate = new RestTemplate();
+        String ResourceUrl = "http://localhost:8081/api/token";
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("token", token);
+        HttpEntity<String> entity = new HttpEntity<>(httpHeaders);
+        ResponseEntity<String> response = restTemplate.exchange(ResourceUrl, HttpMethod.GET, entity, String.class);
+        homeRepo.saveHome(home, id, response.getBody());
     }
 
     @Override
